@@ -264,6 +264,22 @@ Given the following dates, compute the difference in **months** and **weeks** be
 ``` r
 sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
 ```
+```{r}
+sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
+
+diff_month <- interval(head(sample_dates, -1), tail(sample_dates, -1)) %/% months(1)
+diff_week  <- interval(head(sample_dates, -1), tail(sample_dates, -1)) %/% weeks(1)
+
+tibble(
+  from = head(sample_dates, -1),
+  to = tail(sample_dates, -1),
+  months = diff_month,
+  weeks = diff_week
+)
+```
+
+
+
 
 # Problem 6
 
