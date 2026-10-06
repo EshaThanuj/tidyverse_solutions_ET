@@ -288,3 +288,24 @@ Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to
 ``` r
 date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
 ```
+
+```{r}
+date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
+
+date_modify <- possibly(
+  function(x) {
+    d <- parse_date_time(x, orders = c("Y-m-d", "Y/m/d", "d-b-Y"))
+    as.Date(d)
+  },
+  otherwise = as.Date(NA))
+
+more_clean_dates <- map(date_strings, date_modify)
+more_clean_dates
+
+map_chr(more_clean_dates, ~ as.character(month(.x, label = TRUE, abbr = FALSE)))
+```
+
+
+
+
+
